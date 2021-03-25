@@ -1,14 +1,13 @@
 
 variable jenkins_ecr_repository_name {
   type        = string
-  default     = "serverless-jenkins-controller"
+  default     = "jenkins-controller"
   description = "Name for Jenkins controller ECR repository"
 }
 
-
 variable name_prefix {
   type    = string
-  default = "serverless-jenkins"
+  default = "jenkins"
 }
 
 variable vpc_id {
@@ -49,7 +48,6 @@ variable efs_ia_lifecycle_policy {
 variable efs_subnet_ids {
   type        = list(string)
   description = "A list of subnets to attach to the EFS mountpoint"
-  default     = null
 }
 
 variable efs_access_point_uid {
@@ -142,19 +140,16 @@ EOF
 variable alb_security_group_ids {
   type        = list(string)
   description = "A list of security group ids to attach to the Application Load Balancer"
-  default     = null
 }
 
 variable alb_ingress_allow_cidrs {
   type        = list(string)
   description = "A list of cidrs to allow inbound into Jenkins."
-  default     = null
 }
 
 variable alb_subnet_ids {
   type        = list(string)
   description = "A list of subnets for the Application Load Balancer"
-  default     = null
 }
 
 
@@ -191,7 +186,6 @@ variable jenkins_controller_task_log_retention_days {
 variable jenkins_controller_subnet_ids {
   type        = list(string)
   description = "A list of subnets for the jenkins controller fargate service (required)"
-  default     = null
 }
 
 variable jenkins_controller_task_role_arn {

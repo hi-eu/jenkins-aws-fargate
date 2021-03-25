@@ -37,13 +37,11 @@ resource "aws_efs_access_point" this {
   tags = var.tags
 }
 
-
 resource "aws_efs_mount_target" this {
-  // This doesn't work if the VPC is being created where this module is called. Needs work
-  for_each = { for subnet in var.efs_subnet_ids : subnet => true }
+  count = length(var.efs_subnet_ids)
 
   file_system_id  = aws_efs_file_system.this.id
-  subnet_id       = each.key
+  subnet_id       = var.efs_subnet_ids[count.index]
   security_groups = [aws_security_group.efs_security_group.id]
 }
 
