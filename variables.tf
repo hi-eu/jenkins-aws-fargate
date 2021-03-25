@@ -140,6 +140,7 @@ EOF
 variable alb_security_group_ids {
   type        = list(string)
   description = "A list of security group ids to attach to the Application Load Balancer"
+  default     = null
 }
 
 variable alb_ingress_allow_cidrs {
