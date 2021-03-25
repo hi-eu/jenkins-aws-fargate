@@ -27,3 +27,8 @@ output efs_aws_backup_vault_name {
   value       = aws_backup_vault.this.*.name
   description = "The name of the aws backup vault used for EFS backups"
 }
+
+output "lb_dns_name" {
+  value = aws_lb.this.dns_name
+  description = "DNS name of loadbalancer"
+}
