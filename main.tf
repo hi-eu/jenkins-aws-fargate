@@ -41,18 +41,18 @@ resource "aws_security_group" jenkins_controller_security_group {
 
   ingress {
     protocol        = "tcp"
-    self = true
+    self            = true
     security_groups = var.alb_create_security_group ? [aws_security_group.alb_security_group[0].id] : var.alb_security_group_ids
     from_port       = var.jenkins_controller_port
     to_port         = var.jenkins_controller_port
   }
 
   ingress {
-    protocol    = "tcp"
-    self = true
+    protocol        = "tcp"
+    self            = true
     security_groups = var.alb_create_security_group ? [aws_security_group.alb_security_group[0].id] : var.alb_security_group_ids
-    from_port   = var.jenkins_jnlp_port
-    to_port     = var.jenkins_jnlp_port
+    from_port       = var.jenkins_jnlp_port
+    to_port         = var.jenkins_jnlp_port
   }
 
   egress {
