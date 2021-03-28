@@ -20,6 +20,10 @@ jenkins:
                 - "Overall/Administer:authenticated"
     crumbIssuer: "standard"
     slaveAgentPort: 50000
+    simple-theme-plugin:
+        elements:
+        - cssUrl:
+            url: "https://cdn.rawgit.com/afonsof/jenkins-material-theme/gh-pages/dist/material-indigo.css"
     clouds:
         - ecs:
               allowedOverrides: "inheritFrom,label,memory,cpu,image"
@@ -119,6 +123,38 @@ jobs:
                             }
                             sh 'sleep 120'
                             sh 'echo sleep is done'
+                        }
+                    }
+                  }
+              }'''.stripIndent())
+              sandbox()
+          }
+        }
+      }
+  - script: >
+      pipelineJob('Upload S3') {
+        definition {
+          cps {
+            script('''
+              pipeline {
+                  agent {
+                      ecs {
+                          inheritFrom 'build-example-spot'
+                      }
+                  }
+                  stages {
+                    stage("git checkout") {
+                      steps {
+                        git url: 'https://github.com/hieunc-edu/helloworld'
+                      }
+                    }
+                    stage('S3') {
+                        when {
+                          branch 'master'
+                        }
+                        steps {
+                          echo 'Deploying to RDG AWS s3 bucket.'
+                          s3Upload(bucket: 'infinitelambda-statics-origin', includePathPattern:'**/*')
                         }
                     }
                   }
