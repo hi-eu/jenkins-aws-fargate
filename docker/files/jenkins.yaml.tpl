@@ -69,10 +69,6 @@ jenkins:
                     subnets: ${subnets}
                     templateName: "build-example"
                     uniqueRemoteFSRoot: false
-    simple-theme-plugin:
-      elements:
-        - cssUrl:
-            url: "https://cdn.rawgit.com/afonsof/jenkins-material-theme/gh-pages/dist/material-indigo.css"
 security:
   sSHD:
     port: -1
